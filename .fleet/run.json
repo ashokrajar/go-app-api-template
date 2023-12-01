@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "type": "go",
+            "name": "Run API Server",
+            "goExecPath": "go",
+            "buildParams": [
+                "$PROJECT_DIR$/main.go"
+            ],
+            "runParams": [
+                "start-server"
+            ],
+            "workingDir": "$PROJECT_DIR$",
+            "environment": {
+                "GOPATH": "$USER_HOME$/gopaths/go-app-api-template",
+            },
+        },
+
+    ]
+}

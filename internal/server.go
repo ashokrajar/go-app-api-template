@@ -28,6 +28,7 @@ SOFTWARE.
 package internal
 
 import (
+	"fmt"
 	"net/http"
 
 	log "github.com/ashokrajar/zerolog_wrapper"
@@ -81,7 +82,7 @@ func StartServer() {
 
 	r := setupRouter()
 	// Listen and Server in 0.0.0.0:8080
-	if err := r.Run(":8080"); err != nil {
+	if err := r.Run(fmt.Sprintf(":%s", config.AppSvcPort)); err != nil {
 		log.Fatal().Err(err).Msg("can' start server with 8080 port")
 	}
 

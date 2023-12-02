@@ -6,6 +6,7 @@
     <envs>
       <env name="APP_ENV" value="dev" />
       <env name="LOG_LEVEL" value="debug" />
+      <env name="APP_SERVICE_PORT" value="9090" />
     </envs>
     <EXTENSION ID="com.fapiko.jetbrains.plugins.better_direnv.runconfigs.GolandRunConfigurationExtension">
       <option name="DIRENV_ENABLED" value="false" />

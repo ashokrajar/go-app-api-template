@@ -34,8 +34,9 @@ import (
 )
 
 var (
-	LogLevel = "info"
-	AppEnv   = "dev"
+	LogLevel   = "info"
+	AppEnv     = "dev"
+	AppSvcPort = "8080"
 )
 
 func init() {
@@ -51,5 +52,10 @@ func init() {
 	appEnv := viper.GetString("app.env")
 	if appEnv != "" {
 		AppEnv = appEnv
+	}
+
+	appSvcPort := viper.GetString("app.service.port")
+	if appSvcPort != "" {
+		AppSvcPort = appSvcPort
 	}
 }

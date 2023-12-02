@@ -31,23 +31,47 @@ import (
 	"net/http"
 
 	log "github.com/ashokrajar/zerolog_wrapper"
+	"github.com/gin-contrib/logger"
 	"github.com/gin-gonic/gin"
+	"github.com/rs/zerolog"
+
+	"go-app-api-template/config"
 )
 
-func setupRouter() *gin.Engine {
+func getGinEngine() *gin.Engine {
 	// Disable Console Color
 	// gin.DisableConsoleColor()
 	r := gin.Default()
 
-	// Ping test
-	r.GET("/ping", func(c *gin.Context) {
-		c.String(http.StatusOK, "pong")
-	})
+	if config.AppEnv == "prod" {
+		r = gin.New()
+		r.ForwardedByClientIP = true
+		// r.SetTrustedProxies([]string{"127.0.0.1"})
+		r.Use(logger.SetLogger(
+			logger.WithLogger(func(_ *gin.Context, l zerolog.Logger) zerolog.Logger {
+				return l.Output(gin.DefaultWriter).With().Logger()
+			}),
+		))
+	}
 
-	// Get k8s namespaces
-	r.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "Hello World !!!")
-	})
+	return r
+}
+
+func setupRouter() *gin.Engine {
+	r := getGinEngine()
+
+	v1 := r.Group("/v1")
+	{
+		// Ping test
+		v1.GET("/ping", func(c *gin.Context) {
+			c.String(http.StatusOK, "pong")
+		})
+
+		// Get k8s namespaces
+		v1.GET("/", func(c *gin.Context) {
+			c.String(http.StatusOK, "Hello World !!!")
+		})
+	}
 
 	return r
 }
@@ -57,7 +81,9 @@ func StartServer() {
 
 	r := setupRouter()
 	// Listen and Server in 0.0.0.0:8080
-	r.Run(":8080")
+	if err := r.Run(":8080"); err != nil {
+		log.Fatal().Err(err).Msg("can' start server with 8080 port")
+	}
 
 	log.Info().Msg("API Server start-up succeeded .....")
 }

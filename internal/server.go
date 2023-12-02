@@ -83,7 +83,7 @@ func StartServer() {
 	r := setupRouter()
 	// Listen and Server in 0.0.0.0:8080
 	if err := r.Run(fmt.Sprintf(":%s", config.AppSvcPort)); err != nil {
-		log.Fatal().Err(err).Msg("can' start server with 8080 port")
+		log.Fatal().Err(err).Msg(fmt.Sprintf("can't start server on port : %s", config.AppSvcPort))
 	}
 
 	log.Info().Msg("API Server start-up succeeded .....")

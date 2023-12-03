@@ -30,7 +30,7 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 
-	"go-app-api-template/internal"
+	"go-app-api-template/server"
 )
 
 // serverCmd represents the server command
@@ -40,7 +40,7 @@ var serverCmd = &cobra.Command{
 	// Args:  cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		ShowBuildInfo()
-		internal.StartServer()
+		server.StartServer()
 	},
 }
 

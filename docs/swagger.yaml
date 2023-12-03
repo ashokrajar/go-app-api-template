@@ -1,0 +1,28 @@
+info:
+  contact: {}
+paths:
+  /api/ping:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Health check api
+      tags:
+      - HealthCheck
+  /api/v1/hello:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Say Hello World !
+      tags:
+      - API V1
+swagger: "2.0"

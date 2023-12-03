@@ -1,0 +1,46 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/api/ping": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HealthCheck"
+                ],
+                "summary": "Health check api",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/hello": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "API V1"
+                ],
+                "summary": "Say Hello World !",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

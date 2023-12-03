@@ -24,12 +24,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-// Package internal
-package internal
+// Package server
+package server
 
 import (
 	"fmt"
-	"net/http"
 
 	log "github.com/ashokrajar/zerolog_wrapper"
 	"github.com/gin-contrib/logger"
@@ -58,30 +57,11 @@ func getGinEngine() *gin.Engine {
 	return r
 }
 
-func setupRouter() *gin.Engine {
-	r := getGinEngine()
-
-	v1 := r.Group("/v1")
-	{
-		// Ping test
-		v1.GET("/ping", func(c *gin.Context) {
-			c.String(http.StatusOK, "pong")
-		})
-
-		// Get k8s namespaces
-		v1.GET("/", func(c *gin.Context) {
-			c.String(http.StatusOK, "Hello World !!!")
-		})
-	}
-
-	return r
-}
-
 func StartServer() {
 	log.Info().Msg("Starting API Server .....")
 
 	r := setupRouter()
-	// Listen and Server in 0.0.0.0:8080
+	// Start server and listen on 0.0.0.0:$(AppSvcPort)
 	if err := r.Run(fmt.Sprintf(":%s", config.AppSvcPort)); err != nil {
 		log.Fatal().Err(err).Msg(fmt.Sprintf("can't start server on port : %s", config.AppSvcPort))
 	}
